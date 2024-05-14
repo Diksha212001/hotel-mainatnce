@@ -5,7 +5,9 @@ import { AiFillInstagram } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import svg from "../images/about.svg"
 import customersvg from "../images/customers/customer1.svg"
-
+import Pratik from "../images/MEMBERS/pbDP.jpg"
+import Diksha from "../images/MEMBERS/DIKSHA.jpg"
+import Vaishavi from "../images/MEMBERS/vai.jpg"
 function About() {
   return (
     <div className="container aboutus">
@@ -221,14 +223,14 @@ function About() {
         <div className="col-md-4 col-12 mx-auto my-2">
           <div className="card border-0 shadow-lg p-4">
             <img
-              src="https://source.unsplash.com/TMgQMXoglsM/500x350"
+              src={Pratik}
               className="card-img-top"
               alt="director"
             />
             <div className="card-body">
-              <h5 className="card-title mb-0">Director</h5>
+              <h5 className="card-title mb-0">PRATIK BHOYAR</h5>
               <div className="card-text text-black-50">
-                CEO <p className="float-right">5 years</p>
+                SENIOR DEVLOPER<p className="float-right">2 YEARS</p>
               </div>
               <h6 className="mt-5">CONNECT</h6>
               <div className="d-flex justify-content-around">
@@ -243,14 +245,14 @@ function About() {
         <div className="col-md-4 col-12 mx-auto my-2">
           <div className="card border-0 shadow-lg p-4">
             <img
-              src="https://source.unsplash.com/sNut2MqSmds/500x350"
+              src={Diksha}
               className="card-img-top"
               alt="director"
             />
             <div className="card-body">
-              <h5 className="card-title mb-0">Team Member</h5>
+              <h5 className="card-title mb-0">DIKSHA MANEKAR</h5>
               <div className="card-text text-black-50">
-                Manager <p className="float-right">5 years</p>
+             junior devloper <p className="float-right">3 months</p>
               </div>
               <h6 className="mt-5">CONNECT</h6>
               <div className="d-flex justify-content-around">
@@ -265,14 +267,14 @@ function About() {
         <div className="col-md-4 col-12 mx-auto my-2">
           <div className="card border-0 shadow-lg p-4">
             <img
-              src="https://source.unsplash.com/9UVmlIb0wJU/500x350"
+              src={Vaishavi}
               className="card-img-top"
               alt="director"
             />
             <div className="card-body">
-              <h5 className="card-title mb-0">Team Member</h5>
+              <h5 className="card-title mb-0">Vaishnavi Manmode</h5>
               <div className="card-text text-black-50">
-                Manager <p className="float-right">8 years</p>
+                junior Devloper <p className="float-right">3 months</p>
               </div>
               <h6 className="mt-5">CONNECT</h6>
               <div className="d-flex justify-content-around">

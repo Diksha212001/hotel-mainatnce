@@ -66,6 +66,16 @@
                     className="nav-link"
                   //   activeClassName="active_class"
                     exact="true"
+                    to="/rooms"
+                  >
+                    FOOD
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link"
+                  //   activeClassName="active_class"
+                    exact="true"
                     to="/about"
                   >
                     About
