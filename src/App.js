@@ -19,8 +19,8 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import { UserAuthContextProvider } from "./contexts/UserAuthContext";
 import Rooms from "./pages/Rooms";
 import SingleRooms from "./pages/SingleRooms";
-import Booknow from "./pages/Booknow";
 import Footer from "./Components/Footer";
+import BookingSection from "./pages/BookingSection.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -76,18 +76,12 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/booknow/:slug"
-              element={
-                <ProtectedRoute>
-                  <Booknow />
-                </ProtectedRoute>
-              }
-            />
+          
             <Route path="/contact-us" element={<Contact />} />
             <Route path="/signin" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="*" element={<Error />} />
+            <Route path="/book" element={<BookingSection/>}/>
           </Routes>
           <Footer />
         </UserAuthContextProvider>
