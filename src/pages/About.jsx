@@ -28,7 +28,7 @@ function About() {
           </p>
           <div className="text-center col-md-6 col-12 mx-auto">
             <Link
-              to="/contact"
+              to="/contact-us"
               className="btn btn-outline-dark btn-block btn-lg my-5"
             >
               Contact us

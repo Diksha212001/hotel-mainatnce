@@ -66,7 +66,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" exact="true" to="/bookmarks">
+                <NavLink className="nav-link" exact="true" to="/book">
                   Bookmarks
                 </NavLink>
               </li>
