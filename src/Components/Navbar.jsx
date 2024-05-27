@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaAlignRight } from "react-icons/fa";
 import { useUserAuth } from "../contexts/UserAuthContext";
+import "./Navbar.css"; // Ensure this file includes necessary CSS for the Navbar
 
 const Navbar = () => {
   const { user, logOut } = useUserAuth();
@@ -18,8 +19,8 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-sm navbar-dark bg-transparent py-2 fixed-top scrolled">
-        <div className="container-fluid ">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+        <div className="container-fluid">
           <span
             className="navbar-brand font-weight-bolder"
             style={{ cursor: "pointer" }}
@@ -53,7 +54,9 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="https://e-dine.netlify.app/menu">Food</a>
+                <a className="nav-link" href="https://e-dine.netlify.app/menu">
+                  Food
+                </a>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" exact="true" to="/about">
@@ -65,16 +68,17 @@ const Navbar = () => {
                   Contact
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" exact="true" to="/book">
-                  Bookmarks
-                </NavLink>
-              </li>
+
               {user ? (
                 <>
-                  <li>
-                    <NavLink className="nav-link" exact="true" to="/book">
+                  <li className="nav-item">
+                    <NavLink className="nav-link" exact="true" to="/bookings">
                       Bookings
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" exact="true" to="/add-room">
+                      Add Room
                     </NavLink>
                   </li>
                   <li>

@@ -1,60 +1,63 @@
-import { child, get, ref } from "firebase/database";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
-import "./App.css";
-import Navbar from "./Components/Navbar";
-import { db } from "./firebase";
-import Home from "./pages/Home";
-import { ReadFromFirebase } from "./Redux/actions";
-import Login from "./Components/Login";
-import Signup from "./Components/Signup";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Error from "./pages/Error";
-import Bookings from "./Components/bookings";
-import ProtectedRoute from "./Components/ProtectedRoute";
-import { UserAuthContextProvider } from "./contexts/UserAuthContext";
-import Rooms from "./pages/Rooms";
-import SingleRooms from "./pages/SingleRooms";
-import Footer from "./Components/Footer";
-import BookingSection from "./pages/BookingSection.jsx";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { collection, getDocs,addDoc, doc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
+import './App.css';
+import Navbar from './Components/Navbar';
+import { db } from './firebase';
+import { ReadFromFirebase } from './Redux/actions';
+import Home from './pages/Home';
+import Login from './Components/Login';
+import Signup from './Components/Signup';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Error from './pages/Error';
+import ProtectedRoute from './Components/ProtectedRoute';
+import { UserAuthContextProvider } from './contexts/UserAuthContext';
+import SingleRooms from './pages/SingleRooms';
+import Footer from './Components/Footer';
+import Rooms from './pages/Rooms';
+import BookingSection from './pages/BookingSection';
+import AddRoom from './pages/AddRoom';
 
 function App() {
   const dispatch = useDispatch();
-
-  function readFromDatabase() {
-    const dbRef = ref(db);
-    get(child(dbRef, "/hotels"))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          dispatch(ReadFromFirebase(data));
-        } else {
-          console.log("no data");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
+  const [bookedRooms, setBookedRooms] = useState([]);
 
   useEffect(() => {
-    async function start() {
-      await readFromDatabase();
-    }
-    start();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const fetchRooms = async () => {
+      const roomsCollection = collection(db, 'rooms');
+      const roomSnapshot = await getDocs(roomsCollection);
+      const roomsList = roomSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      dispatch(ReadFromFirebase(roomsList));
+    };
 
-  // useEffect(() => {
-  //   if (hotel) {
-  //     dispatch(ReadFromFirebase(hotel));
-  //     console.log(hotel);
-  //   }
-  // }, [hotel]);
+    fetchRooms();
+  }, [dispatch]);
+
+  const addRoomToBooking = async (room) => {
+    const roomWithTimestamp = {
+      ...room,
+      bookedAt: serverTimestamp(),
+    };
+    await addDoc(collection(db, 'bookings'), roomWithTimestamp);
+    setBookedRooms([...bookedRooms, roomWithTimestamp]);
+  };
+
+  const removeRoomFromBooking = async (roomId) => {
+    await deleteDoc(doc(db, 'bookings', roomId));
+    setBookedRooms(bookedRooms.filter(room => room.id !== roomId));
+  };
+
+  const clearBooking = async () => {
+    const bookingsSnapshot = await getDocs(collection(db, 'bookings'));
+    bookingsSnapshot.forEach(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+    setBookedRooms([]);
+  };
 
   return (
     <div className="App">
@@ -63,25 +66,26 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" index element={<Home />} />
-            <Route path="/rooms" element={<Rooms />} />
+            <Route path="/rooms" element={<Rooms addRoomToBooking={addRoomToBooking} />} />
             <Route path="/rooms/:slug" element={<SingleRooms />} />
-
             <Route path="/about" element={<About />} />
             <Route
               path="/bookings"
               element={
                 <ProtectedRoute>
-                  {" "}
-                  <Bookings />{" "}
+                  <BookingSection
+                    bookedRooms={bookedRooms}
+                    removeRoomFromBooking={removeRoomFromBooking}
+                    clearBooking={clearBooking}
+                  />
                 </ProtectedRoute>
               }
             />
-          
             <Route path="/contact-us" element={<Contact />} />
             <Route path="/signin" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/add-room" element={<AddRoom />} />
             <Route path="*" element={<Error />} />
-            <Route path="/book" element={<BookingSection/>}/>
           </Routes>
           <Footer />
         </UserAuthContextProvider>

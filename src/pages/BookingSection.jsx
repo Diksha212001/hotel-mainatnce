@@ -1,50 +1,59 @@
-import { Card, Button } from 'react-bootstrap';
-import Bg from '../images/defaultBcg.jpg'
+import React, { useState, useEffect } from 'react';
+import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { db } from '../firebase';
+import { Card, Button, Container, Row, Col } from 'react-bootstrap';
+import Hero from '../Components/Hero';
 
-// Mock data for booked rooms
-const bookedRoomsData = [
-  {
-    id: 1,
-    roomName: 'Deluxe Suite',
-    description: 'A luxurious suite with an ocean view.',
-    imageUrl: 'path-to-your-image/deluxe-suite.jpg',
-  },
-  // ... more booked rooms
-];
+const BookedRoomCard = ({ room, onRemove }) => {
+  const bookingTime = room.bookingTime?.toDate().toLocaleString();
 
-const BookedRoomCard = ({ room }) => {
   return (
-    <Card style={{ width: '18rem', marginBottom: '1rem' }}>
+    <Card className="mb-4">
       <Card.Img variant="top" src={room.imageUrl} />
       <Card.Body>
-        <Card.Title>{room.roomName}</Card.Title>
+        <Card.Title>{room.name}</Card.Title>
         <Card.Text>{room.description}</Card.Text>
-        <Button variant="primary">View Details</Button>
+        {bookingTime && <Card.Text><strong>Booked at:</strong> {bookingTime}</Card.Text>}
+        <Button variant="danger" onClick={() => onRemove(room.id)}>Remove</Button>
       </Card.Body>
     </Card>
   );
 };
 
-const Hero = ({ title, subtitle }) => {
-  return (
-    <div className="hero-section" style={{ backgroundImage: <Bg/> }}>
-      <h1 className="hero-title">{title}</h1>
-      <p className="hero-subtitle">{subtitle}</p>
-    </div>
-  );
-};
-
 const BookingSection = () => {
+  const [bookedRooms, setBookedRooms] = useState([]);
+
+  useEffect(() => {
+    const fetchBookedRooms = async () => {
+      const roomsCollection = collection(db, 'rooms');
+      const roomSnapshot = await getDocs(roomsCollection);
+      const bookedRoomsList = roomSnapshot.docs
+        .filter(doc => doc.data().booked)
+        .map(doc => ({ id: doc.id, ...doc.data() }));
+      setBookedRooms(bookedRoomsList);
+    };
+
+    fetchBookedRooms();
+  }, []);
+
+  const handleRemove = async (roomId) => {
+    const roomRef = doc(db, 'rooms', roomId);
+    await updateDoc(roomRef, { booked: false, bookingTime: null });
+    setBookedRooms(bookedRooms.filter(room => room.id !== roomId));
+  };
+
   return (
     <>
       <Hero title="Your Bookings" subtitle="All your room bookings in one place" />
-      <div className="container my-5">
-        <div className="d-flex flex-wrap justify-content-around">
-          {bookedRoomsData.map((room) => (
-            <BookedRoomCard key={room.id} room={room} />
+      <Container className="my-5">
+        <Row>
+          {bookedRooms.map((room) => (
+            <Col key={room.id} xs={12} sm={6} md={4} lg={3}>
+              <BookedRoomCard room={room} onRemove={handleRemove} />
+            </Col>
           ))}
-        </div>
-      </div>
+        </Row>
+      </Container>
     </>
   );
 };

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Alert } from "react-bootstrap";
+import { Form, Alert, Button as BootstrapButton, Container, Row, Col } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../contexts/UserAuthContext";
 import styled from "styled-components";
 
-const Button = styled.button`
+const Button = styled(BootstrapButton)`
   background-color: blue;
   padding: 10px;
   border-radius: 5px;
@@ -50,47 +50,49 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div className="p-4 box" style={{ width: "70%", margin: "100px auto" }}>
-        <h2 className="mb-3 text-center">Login</h2>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control
-              type="email"
-              placeholder="Email address"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Group>
+    <Container fluid className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+      <Row className="w-100">
+        <Col xs={12} md={8} lg={6} className="mx-auto">
+          <div className="p-4 box shadow-sm bg-white rounded">
+            <h2 className="mb-3 text-center">Login</h2>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Control
+                  type="email"
+                  placeholder="Email address"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
 
-          <div className="d-grid gap-2">
-            <Button variant="primary" type="Submit">
-              Log In
-            </Button>
+              <div className="d-grid gap-2">
+                <Button type="submit">Log In</Button>
+              </div>
+            </Form>
+            <hr />
+            <div className="d-grid gap-2">
+              <GoogleButton
+                className="g-btn"
+                style={{ width: "100%" }}
+                type="dark"
+                onClick={handleGoogleSignIn}
+              />
+            </div>
+            <div className="p-4 box mt-3 text-center">
+              Don't have an account? <Link to="/signup">Sign up</Link>
+            </div>
           </div>
-        </Form>
-        <hr />
-        <div>
-          <GoogleButton
-            className="g-btn"
-            style={{ width: "100%" }}
-            type="dark"
-            onClick={handleGoogleSignIn}
-          />
-        </div>
-        <div className="p-4 box mt-3 text-center">
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </div>
-      </div>
-    </>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
