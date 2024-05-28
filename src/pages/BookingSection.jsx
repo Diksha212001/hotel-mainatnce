@@ -3,12 +3,13 @@ import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import Hero from '../Components/Hero';
+import './BookingSection.css'; // Import custom CSS file for styling
 
 const BookedRoomCard = ({ room, onRemove }) => {
   const bookingTime = room.bookingTime?.toDate().toLocaleString();
 
   return (
-    <Card className="mb-4">
+    <Card className="booked-room-card mb-4">
       <Card.Img variant="top" src={room.imageUrl} />
       <Card.Body>
         <Card.Title>{room.name}</Card.Title>
@@ -45,10 +46,10 @@ const BookingSection = () => {
   return (
     <>
       <Hero title="Your Bookings" subtitle="All your room bookings in one place" />
-      <Container className="my-5">
-        <Row>
+      <Container className="booked-rooms-container my-5">
+        <Row xs={1} md={2} lg={3} xl={4} className="g-4">
           {bookedRooms.map((room) => (
-            <Col key={room.id} xs={12} sm={6} md={4} lg={3}>
+            <Col key={room.id}>
               <BookedRoomCard room={room} onRemove={handleRemove} />
             </Col>
           ))}

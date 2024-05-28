@@ -1,0 +1,33 @@
+.booked-rooms-container {
+    background-color: #f8f9fa; /* Light gray background color */
+    padding: 30px; /* Add padding for better spacing */
+  }
+  
+  .booked-room-card {
+    background-color: #fff; /* White background color for cards */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  }
+  
+  .booked-room-card .card-img-top {
+    border-top-left-radius: 10px; /* Rounded corners for top left and right of image */
+    border-top-right-radius: 10px;
+  }
+  
+  .booked-room-card .card-body {
+    padding: 20px; /* Add padding inside card body */
+  }
+  
+  .booked-room-card .card-title {
+    font-weight: bold; /* Make title bold */
+  }
+  
+  .booked-room-card .card-text {
+    color: #555; /* Dark gray text color */
+  }
+  
+  .booked-room-card .btn {
+    width: 100%; /* Make button full width */
+    margin-top: 10px; /* Add margin to separate button from text */
+  }
+  
