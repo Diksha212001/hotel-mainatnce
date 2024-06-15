@@ -31,3 +31,25 @@
     background: linear-gradient(#D7DBDD, #0000ff);
 }
 }
+/* BookingSection.css */
+
+.container {
+    @apply mx-auto my-5 p-5;
+  }
+  
+  .card {
+    @apply mb-4;
+  }
+  
+  .card img {
+    @apply h-48 object-cover;
+  }
+  
+  .breadcrumb {
+    @apply flex flex-wrap;
+  }
+  
+  .breadcrumb-item {
+    @apply mr-2;
+  }
+  

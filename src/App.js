@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { collection, getDocs,addDoc, doc, deleteDoc, serverTimestamp } from 'firebase/firestore';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
+import { collection, getDocs } from 'firebase/firestore';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import './App.css';
 import Navbar from './Components/Navbar';
 import { db } from './firebase';
@@ -21,10 +21,12 @@ import Footer from './Components/Footer';
 import Rooms from './pages/Rooms';
 import BookingSection from './pages/BookingSection';
 import AddRoom from './pages/AddRoom';
+import Decorations from './pages/Decorations';
+import Caterers from './pages/Caterers';
+import LawnBooking from './pages/LawnBooking';
 
 function App() {
   const dispatch = useDispatch();
-  const [bookedRooms, setBookedRooms] = useState([]);
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -37,28 +39,6 @@ function App() {
     fetchRooms();
   }, [dispatch]);
 
-  const addRoomToBooking = async (room) => {
-    const roomWithTimestamp = {
-      ...room,
-      bookedAt: serverTimestamp(),
-    };
-    await addDoc(collection(db, 'bookings'), roomWithTimestamp);
-    setBookedRooms([...bookedRooms, roomWithTimestamp]);
-  };
-
-  const removeRoomFromBooking = async (roomId) => {
-    await deleteDoc(doc(db, 'bookings', roomId));
-    setBookedRooms(bookedRooms.filter(room => room.id !== roomId));
-  };
-
-  const clearBooking = async () => {
-    const bookingsSnapshot = await getDocs(collection(db, 'bookings'));
-    bookingsSnapshot.forEach(async (doc) => {
-      await deleteDoc(doc.ref);
-    });
-    setBookedRooms([]);
-  };
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -66,21 +46,17 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" index element={<Home />} />
-            <Route path="/rooms" element={<Rooms addRoomToBooking={addRoomToBooking} />} />
+            <Route path="/rooms" element={<Rooms />} />
             <Route path="/rooms/:slug" element={<SingleRooms />} />
             <Route path="/about" element={<About />} />
-            <Route
-              path="/bookings"
-              element={
-                <ProtectedRoute>
-                  <BookingSection
-                    bookedRooms={bookedRooms}
-                    removeRoomFromBooking={removeRoomFromBooking}
-                    clearBooking={clearBooking}
-                  />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/decorations" element={<Decorations />} />
+            <Route path="/caterers" element={<Caterers />} />
+            <Route path="/lawn-booking" element={<LawnBooking />} />
+            <Route path="/bookings" element={
+              <ProtectedRoute>
+                <BookingSection />
+              </ProtectedRoute>
+            } />
             <Route path="/contact-us" element={<Contact />} />
             <Route path="/signin" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

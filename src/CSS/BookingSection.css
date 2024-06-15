@@ -30,4 +30,31 @@
     width: 100%; /* Make button full width */
     margin-top: 10px; /* Add margin to separate button from text */
   }
+  .booked-room-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .booked-room-card img {
+    object-fit: cover;
+    height: 200px;
+  }
+  
+  .booked-room-card .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .booked-rooms-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .booked-room-card .btn {
+    width: 100%;
+    margin-top: 10px;
+  }
   

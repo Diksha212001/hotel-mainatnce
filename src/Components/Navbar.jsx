@@ -1,8 +1,8 @@
-import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { FaAlignRight } from "react-icons/fa";
-import { useUserAuth } from "../contexts/UserAuthContext";
-import "./Navbar.css"; // Ensure this file includes necessary CSS for the Navbar
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { FaAlignRight } from 'react-icons/fa';
+import { useUserAuth } from '../contexts/UserAuthContext';
+import '../CSS/Navbar.css'; // Ensure this file includes necessary CSS for the Navbar
 
 const Navbar = () => {
   const { user, logOut } = useUserAuth();
@@ -54,9 +54,24 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="https://e-dine.netlify.app/menu">
-                  Food
-                </a>
+                <NavLink className="nav-link" exact="true" to="/decorations">
+                  Decorations
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" exact="true" to="/caterers">
+                  Caterers
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" exact="true" to="/lawn-booking">
+                  Lawn Booking
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" exact="true" to="/bookings">
+                  Bookings
+                </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" exact="true" to="/about">
@@ -68,14 +83,8 @@ const Navbar = () => {
                   Contact
                 </NavLink>
               </li>
-
               {user ? (
                 <>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" exact="true" to="/bookings">
-                      Bookings
-                    </NavLink>
-                  </li>
                   <li className="nav-item">
                     <NavLink className="nav-link" exact="true" to="/add-room">
                       Add Room

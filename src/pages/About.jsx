@@ -22,9 +22,11 @@ function About() {
         <div className="col-md-6 col-12 my-auto">
           <h1 className="display-4 text-center my-5">About Us </h1>
           <p className="lead text-justify text-center">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas
-            officia eligendi dolorem molestias nesciunt aliquam deserunt velit
-            fuga quidem atque?
+          Welcome to Rama Celebrations, the premier destination for luxury events and unforgettable experiences in Nagpur. Nestled amidst serene landscapes, our venue is synonymous with opulence, elegance, and impeccable service. We specialize in hosting grand weddings, corporate events, and intimate gatherings, ensuring each event is a unique and memorable affair.
+
+Our team of dedicated professionals is committed to providing exceptional hospitality and personalized service. With a blend of traditional charm and modern amenities, Rama Celebrations offers a seamless blend of comfort and sophistication. Explore our venue, discover our bespoke services, and let us help you create moments that will be cherished forever.
+
+Thank you for choosing Rama Celebrations, where every event is a celebration of life's most precious moments.
           </p>
           <div className="text-center col-md-6 col-12 mx-auto">
             <Link
@@ -40,31 +42,16 @@ function About() {
         <h1 className="display-4">About Company</h1>
         <div className="pt-4">
           <p className="about_info">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque,
-            illum delectus sequi necessitatibus cum laudantium incidunt minima,
-            voluptatibus voluptas repellat officia doloremque magnam quis,
-            accusamus tenetur, quasi doloribus iusto quia distinctio labore
-            optio reprehenderit aperiam suscipit dignissimos aliquid! Odit
-            distinctio quam, excepturi repellendus sunt magni adipisci sit
-            architecto placeat tempore numquam, ipsam nobis vitae aperiam
-            reprehenderit inventore ipsum facilis? Sapiente iure id explicabo.
-            Omnis, architecto quaerat! Architecto error ducimus consequuntur,
-            asperiores fugiat nostrum veniam eaque aspernatur ab quas aliquam
-            ipsa! Odit expedita voluptate, mollitia tenetur eveniet quisquam a
-            veritatis. In, odit. Enim aliquid voluptates vitae pariatur facilis
-            beatae odio labore est, voluptatem officiis! Maiores, iure molestias
-            aliquam suscipit rem impedit veritatis architecto delectus molestiae
-            tempora inventore beatae consectetur facere voluptas dolores labore,
-            laboriosam officiis non alias minima dolorum fuga corrupti
-            blanditiis. Laudantium consequatur, aspernatur beatae dicta atque
-            labore. Molestiae illum, possimus, officia sit nihil, cupiditate
-            nesciunt, consequatur nulla deleniti veniam modi maxime impedit
-            delectus iste totam earum vel repellendus doloribus in quae fuga.
-            Dignissimos, unde eius voluptatem iusto est nesciunt quaerat
-            temporibus velit doloribus a id laborum repellendus fugit nihil,
-            animi facilis quisquam nemo tempora accusantium doloremque libero
-            magnam dolorum veritatis vel aspernatur. Enim reiciendis laborum,
-            expedita illum, aliquam eaque!
+          Rama Celebrations is a renowned luxury event venue located in the heart of Nagpur. our venue has become synonymous with elegance, opulence, and unparalleled hospitality. Over the years, we have hosted a myriad of events, including weddings, corporate gatherings, social functions, and cultural celebrations, each one leaving a lasting impression on our guests.
+
+Facilities:
+Our sprawling venue boasts state-of-the-art facilities designed to cater to the diverse needs of our clients. From spacious banquet halls and lush green lawns to well-appointed guest rooms and gourmet dining options, we offer everything needed to make every event truly spectacular.
+
+Services:
+At Rama Celebrations, we understand that every event is unique and deserves personalized attention. Our team of experienced event planners works closely with clients to understand their vision and bring it to life seamlessly. From conceptualization and planning to execution and post-event support, we offer end-to-end event management services to ensure a stress-free and memorable experience for our clients and their guests.
+
+Mission:
+Our mission is to provide exceptional hospitality and create unforgettable experiences for our clients and their guests. We strive to exceed expectations by delivering impeccable service, attention to detail, and a commitment to excellence in everything we do.
           </p>
         </div>
       </div>
