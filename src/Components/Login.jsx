@@ -4,6 +4,8 @@ import { Form, Alert, Button as BootstrapButton, Container, Row, Col } from "rea
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../contexts/UserAuthContext";
 import styled from "styled-components";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Button = styled(BootstrapButton)`
   background-color: blue;
@@ -33,6 +35,7 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
+      toast.success("Login successful!");
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -43,6 +46,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await googleSignIn();
+      toast.success("Google Sign-In successful!");
       navigate("/");
     } catch (error) {
       console.log(error.message);
@@ -92,6 +96,7 @@ const Login = () => {
           </div>
         </Col>
       </Row>
+      <ToastContainer />
     </Container>
   );
 };

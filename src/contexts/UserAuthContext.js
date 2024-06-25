@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -8,53 +7,55 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-
 import { auth, db } from "../firebase";
-
 import { child, get, ref, set } from "firebase/database";
 import { uid } from "uid";
 
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const uuid = uid();
 
   function logIn(email, password) {
-    get(child(ref(db), "/users")).then((data) => {
-      const userAuth = Object.values(data.val()).filter(
+    return get(child(ref(db), "users")).then((data) => {
+      const userAuth = Object.values(data.val()).find(
         (item) => item.email === email && item.isAdmin === false
       );
-      if (userAuth[0]) {
+      if (userAuth) {
         return signInWithEmailAndPassword(auth, email, password);
+      } else {
+        throw new Error("Please sign in with a User Account.");
       }
-      alert("Please Sign in with User Account.");
-      // return signInWithEmailAndPassword(auth, email, password);
     });
   }
 
-  function signUp(email, password, name, number, id) {
-    return createUserWithEmailAndPassword(auth, email, password).then(() => {
-      set(ref(db, `users/${uuid}`), {
+  function signUp(email, password, name, number) {
+    return createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      const user = userCredential.user;
+      return set(ref(db, `users/${uuid}`), {
+        uid: user.uid,
         email,
         name,
         number,
-        id,
+        id: uuid,
         isAdmin: false,
       });
     });
   }
+
   function logOut() {
     return signOut(auth);
   }
+
   function googleSignIn() {
     const googleAuthProvider = new GoogleAuthProvider();
     return signInWithPopup(auth, googleAuthProvider);
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-      setUser(currentuser);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
     });
 
     return () => {

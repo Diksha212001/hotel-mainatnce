@@ -5,4 +5,16 @@
   body {
     padding-top: 56px; /* Adjust this value based on the navbar height */
   }
+  .navbar-nav .dropdown-menu {
+    position: absolute;
+    float: none;
+  }
+  
+  .navbar-nav .dropdown-menu .dropdown-item {
+    color: #343a40; /* Adjust based on your theme */
+  }
+  
+  .navbar-nav .dropdown-menu .dropdown-item:hover {
+    background-color: #e9ecef; /* Adjust based on your theme */
+  }
   

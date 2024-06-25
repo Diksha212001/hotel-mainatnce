@@ -267,7 +267,7 @@ Our mission is to provide exceptional hospitality and create unforgettable exper
               <div className="d-flex justify-content-around">
                 <FaFacebookSquare className="connect" />
                 <AiFillInstagram className="connect" />
-                <FaLinkedin className="connect" />
+              <FaLinkedin className="connect" />
                 <IoLogoYoutube className="connect" />
               </div>
             </div>

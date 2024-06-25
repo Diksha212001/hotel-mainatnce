@@ -54,19 +54,33 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" exact="true" to="/decorations">
-                  Decorations
-                </NavLink>
+                <a className="nav-link" href="https://e-dine.netlify.app/menu">
+                 Hotel Food
+                </a>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" exact="true" to="/caterers">
-                  Caterers
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" exact="true" to="/lawn-booking">
-                  Lawn Booking
-                </NavLink>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="servicesDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Services
+                </a>
+                <div className="dropdown-menu" aria-labelledby="servicesDropdown">
+                  <NavLink className="dropdown-item" exact="true" to="/decorations">
+                    Decorations
+                  </NavLink>
+                  <NavLink className="dropdown-item" exact="true" to="/lawn-booking">
+                    Lawn Booking
+                  </NavLink>
+                  <NavLink className="dropdown-item" exact="true" to="/caterers">
+                    Caterers
+                  </NavLink>
+                </div>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" exact="true" to="/bookings">

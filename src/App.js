@@ -24,6 +24,8 @@ import AddRoom from './pages/AddRoom';
 import Decorations from './pages/Decorations';
 import Caterers from './pages/Caterers';
 import LawnBooking from './pages/LawnBooking';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -66,6 +68,7 @@ function App() {
           <Footer />
         </UserAuthContextProvider>
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 }

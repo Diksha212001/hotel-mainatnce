@@ -7,23 +7,23 @@ const Services = () => {
       services: [
         {
           icon: <FaCocktail />,
-          title: "Free CockTail",
-          info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur",
+          title: "Free DRINK",
+          info: "Hotel service refers to the services provided by a hotel to its guests, such as accommodation, food and beverage, housekeeping, and concierge services.",
         },
         {
           icon: <FaHiking />,
           title: "Endless Hiking",
-          info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur",
+          info: "Hotel service refers to the management and provision of various services in a hotel, such as room management, dining room management, staff management",
         },
         {
           icon: <FaShuttleVan />,
           title: "Free Shuttle",
-          info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur",
+          info: "Hotel service refers to the provision of room accommodation for individuals who are on vacation, attending meetings, or traveling for work.",
         },
         {
           icon: <FaBeer />,
           title: "Unlimited Beer",
-          info: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur",
+          info: "Hotel service refers to the services provided by a hotel to its guests, such as accommodation, room service, and other amenities.",
         },
       ],
     };

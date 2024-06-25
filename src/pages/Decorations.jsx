@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify'; // Import toast notification library
-import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Hero from '../Components/Hero';
 import Banner from '../Components/Banner';
 import Dec01 from '../images/decoration/1.png';
 import Dec02 from '../images/decoration/2.png';
 import Dec03 from '../images/decoration/3.png';
-import '../CSS/Decorations.css'; // Ensure you have the necessary CSS
+import '../CSS/Decorations.css';
+import { db } from '../firebase'; // Import Firestore
 
 const Decorations = () => {
   const [formData, setFormData] = useState({
@@ -27,11 +28,21 @@ const Decorations = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate booking confirmation logic (you can replace this with actual API call)
-    const isBookingSuccessful = handleBooking();
-    if (isBookingSuccessful) {
+
+    try {
+      // Check if the date is already booked
+      const bookingsRef = db.collection('bookings');
+      const snapshot = await bookingsRef.where('date', '==', formData.date).get();
+
+      if (!snapshot.empty) {
+        toast.error('Booking is already taken for this date. Please choose another date.');
+        return;
+      }
+
+      // Add booking to Firestore
+      await bookingsRef.add(formData);
       toast.success('Booking confirmed successfully!');
       setFormData({
         name: '',
@@ -41,26 +52,16 @@ const Decorations = () => {
         date: '',
         message: ''
       });
+    } catch (error) {
+      console.error('Error adding document: ', error);
+      toast.error('Failed to confirm booking. Please try again.');
     }
-  };
-
-  const handleBooking = () => {
-    // Simulate checking if the date is already booked (you can replace this with actual logic)
-    const { date } = formData;
-    // Here you would typically check against your backend or local state/database
-    if (date === '2024-07-01') {
-      toast.error('Booking is already taken for this date. Please choose another date.');
-      return false; // Return false to indicate booking failed
-    }
-    // If booking is successful, you would proceed to update your backend or state
-    return true;
   };
 
   const services = [
     { title: 'Wedding Decorations', description: 'Elegant and beautiful wedding decorations.', image: Dec01 },
     { title: 'Birthday Parties', description: 'Fun and vibrant decorations for birthday parties.', image: Dec02 },
     { title: 'Corporate Events', description: 'Professional decorations for corporate events.', image: Dec03 },
-    // Add more services as needed
   ];
 
   return (
@@ -78,7 +79,7 @@ const Decorations = () => {
             <li className="breadcrumb-item active" aria-current="page">Decorations</li>
           </ol>
         </nav>
-        <h2 className="text-2xl font-bold mb-5">Our Decoration Services</h2>
+        <h2 className="text-2xl font-bold mb-5 text-center">Our Decoration Services</h2>
         <div className="row row-cols-1 row-cols-md-3 g-4 mb-5">
           {services.map((service, index) => (
             <div key={index} className="col">
@@ -92,12 +93,10 @@ const Decorations = () => {
             </div>
           ))}
         </div>
-        <h2 className="text-2xl font-bold mb-5">Book Our Decoration Services</h2>
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4">
+        <h2 className="text-2xl font-bold mb-5 text-center">Book Our Decoration Services</h2>
+        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded p-4 border">
           <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
+            <label htmlFor="name" className="form-label">Name</label>
             <input
               id="name"
               name="name"
@@ -109,9 +108,7 @@ const Decorations = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
+            <label htmlFor="email" className="form-label">Email</label>
             <input
               id="email"
               name="email"
@@ -123,9 +120,7 @@ const Decorations = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="phone" className="form-label">
-              Phone
-            </label>
+            <label htmlFor="phone" className="form-label">Phone</label>
             <input
               id="phone"
               name="phone"
@@ -137,9 +132,7 @@ const Decorations = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="service" className="form-label">
-              Service
-            </label>
+            <label htmlFor="service" className="form-label">Service</label>
             <select
               id="service"
               name="service"
@@ -155,9 +148,7 @@ const Decorations = () => {
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="date" className="form-label">
-              Event Date
-            </label>
+            <label htmlFor="date" className="form-label">Event Date</label>
             <input
               id="date"
               name="date"
@@ -169,9 +160,7 @@ const Decorations = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="message" className="form-label">
-              Additional Message
-            </label>
+            <label htmlFor="message" className="form-label">Additional Message</label>
             <textarea
               id="message"
               name="message"
@@ -191,6 +180,7 @@ const Decorations = () => {
             </button>
           </div>
         </form>
+        <ToastContainer />
       </div>
     </div>
   );
